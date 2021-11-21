@@ -5,7 +5,7 @@ from datetime import date
 class Star:
     
     
-    
+    #prueba git
 
     def __init__(self, candidate, minChi, mins, period, period_err, amplitude, amplitude_err) -> None:
         self.__candidate = candidate
