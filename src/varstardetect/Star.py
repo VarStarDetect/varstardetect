@@ -3,7 +3,7 @@ from datetime import date
 
 
 class Star:
-    # Private fields
+    
     
     
 
