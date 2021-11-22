@@ -11,7 +11,6 @@ from Star import Star
 from StarProcessor import StarProcessor
 
 
-
 class VarStarDetect:
     # Constants
     SECTOR_NUMBER = 7
@@ -21,14 +20,11 @@ class VarStarDetect:
 
     # fields
 
-    
-    __sector = 'Targets/sector_' + 1 +'.csv'
-    
+    __sector = 'Targets/sector_' + 1 + '.csv'
 
     def __init__(self, sector) -> None:
-        
+
         self.__sp = StarProcessor()
-        
 
         # Selection of sector default 1
         if(sector <= 0 or sector > self.SECTOR_NUMBER):
@@ -41,21 +37,23 @@ class VarStarDetect:
         pass
 
     def setSector(self, sector):
-        self.__sector = 'Targets/sector_' + sector +'.csv'
+        self.__sector = 'Targets/sector_' + sector + '.csv'
 
     def processStarMT(self, candidate, min, max):
-        
+
         time, flux, flux_err = self.__sp.data_download(
             candidate, StarProcessor.OUTLIERS, StarProcessor.SIGMA, self.directory)
 
         period, period_err = self.__sp.period_search(
-        time, flux, flux_err, min, max)
-        
+            time, flux, flux_err, min, max)
+
         omega, omega_err = self.__sp.angular_frequency(
             period, period_err)
-        minChi, mins = self.__sp.best_fit(time, flux, flux_err, StarProcessor.EPOCH_0, omega)
+        minChi, mins = self.__sp.best_fit(
+            time, flux, flux_err, StarProcessor.EPOCH_0, omega)
 
-        func = self.__sp.harm_fourier_series(mins, omega, StarProcessor.EPOCH_0)
+        func = self.__sp.harm_fourier_series(
+            mins, omega, StarProcessor.EPOCH_0)
 
         fitted, fitted_err = self.__sp.evaluation(func, time, flux, flux_err)
 
@@ -64,18 +62,20 @@ class VarStarDetect:
         return Star(candidate, minChi, mins, period, period_err, amplitude, amplitude_err)
 
     def processStar(self, candidate, min, max):
-        
+
         time, flux, flux_err = self.__sp.data_download(
             candidate, StarProcessor.OUTLIERS, StarProcessor.SIGMA, self.getCurrentSector())
 
         period, period_err = self.__sp.period_search(
-        time, flux, flux_err, min, max)
-        
+            time, flux, flux_err, min, max)
+
         omega, omega_err = self.__sp.angular_frequency(
             period, period_err)
-        minChi, mins = self.__sp.best_fit(time, flux, flux_err, StarProcessor.EPOCH_0, omega)
+        minChi, mins = self.__sp.best_fit(
+            time, flux, flux_err, StarProcessor.EPOCH_0, omega)
 
-        func = self.__sp.harm_fourier_series(mins, omega, StarProcessor.EPOCH_0)
+        func = self.__sp.harm_fourier_series(
+            mins, omega, StarProcessor.EPOCH_0)
 
         fitted, fitted_err = self.__sp.evaluation(func, time, flux, flux_err)
 
@@ -95,8 +95,8 @@ class VarStarDetect:
                     print(aux_Star)
             else:
                 if show:
-                    print("CANDIDATE: " + str(aux_Star.getCandidate()) + " not elegible")
-
+                    print("CANDIDATE: " +
+                          str(aux_Star.getCandidate()) + " not elegible")
 
     def saveToCSV(self, file):
         with open(file, 'w', newline='') as f:
@@ -118,5 +118,3 @@ class VarStarDetect:
 
     def getCurrentSector(self):
         return self.__sector
-
-

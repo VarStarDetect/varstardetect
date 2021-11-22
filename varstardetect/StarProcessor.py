@@ -6,6 +6,7 @@ import pandas as pd
 
 import lightkurve as lk  # for downloading TESS data products
 
+
 class StarProcessor:
 
     OUTLIERS = True
@@ -15,7 +16,7 @@ class StarProcessor:
     def __init__(self) -> None:
         pass
 
-    def data_download(self,target_number, outliers, sigma, dir):
+    def data_download(self, target_number, outliers, sigma, dir):
 
         TICID, Camera, CCD, Tmag, RA, Dec = np.loadtxt(
             f"{dir}", delimiter=',', unpack=True)
@@ -80,9 +81,6 @@ class StarProcessor:
         uncertainty = 2 * np.pi * np.log(best_period) * best_period_err
 
         return omega, uncertainty
-
-    
-
 
     def harm_fourier_series(self, degree, omega, T_0):
 
@@ -178,10 +176,7 @@ class StarProcessor:
         chi2 = np.sum((deviations / flux_err) ** 2)
         return chi2/(len(flux) - len(func(1)))
 
-    
     def amplitude_func(self, fitted, fitted_err):
-
-        
 
         amplitude = max(fitted) - min(fitted)
 
