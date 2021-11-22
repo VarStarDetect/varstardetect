@@ -1,0 +1,1 @@
+from varstardetect.VarStarDetect import VarStarDetect
