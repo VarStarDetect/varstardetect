@@ -18,9 +18,10 @@ setup(
     keywords=['Star', 'Astronomy', 'Star Detection', 'Detection'],
     install_requires=[
 
-        '__future__', 'numpy',
+        'numpy',
         'matplotlib',
-        'astropy', 'LombScargle',
+        'astropy', 
+        'LombScargle',
         'pandas',
         'lightkurve',
 
