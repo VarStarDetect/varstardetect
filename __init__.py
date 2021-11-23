@@ -1,1 +1,3 @@
 from varstardetect.VarStarDetect import VarStarDetect
+from varstardetect.Star import Star
+from varstardetect.StarProcessor import StarProcessor
