@@ -2,7 +2,7 @@ from distutils.core import setup
 setup(
     name='varstardetect',         # How you named your package folder (MyLib)
     packages=['varstardetect'],   # Chose the same as "name"
-    version='1.10.0',      # Start with a small number and increase it with every change you make
+    version='2.0.0',      # Start with a small number and increase it with every change you make
     # Chose a license from here: https://help.github.com/articles/licensing-a-repository
     license='gpl-3.0',
     # Give a short description about your library
@@ -13,7 +13,7 @@ setup(
     # Provide either the link to your github or to your website
     url='https://github.com/VarStarDetect/varstardetect',
     # I explain this later on
-    download_url='https://github.com/VarStarDetect/varstardetect/archive/refs/tags/1.10.0.tar.gz',
+    download_url='https://github.com/VarStarDetect/varstardetect/archive/refs/tags/2.0.0.tar.gz',
     # Keywords that define your package best
     keywords=['Star', 'Astronomy', 'Star Detection', 'Detection'],
     install_requires=[
