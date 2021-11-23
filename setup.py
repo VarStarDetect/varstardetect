@@ -13,7 +13,7 @@ setup(
     # Provide either the link to your github or to your website
     url='https://github.com/VarStarDetect/varstardetect',
     # I explain this later on
-    download_url='https://github.com/VarStarDetect/varstardetect/archive/refs/tags/1.10.0tar.gz',
+    download_url='https://github.com/VarStarDetect/varstardetect/archive/refs/tags/1.10.0.tar.gz',
     # Keywords that define your package best
     keywords=['Star', 'Astronomy', 'Star Detection', 'Detection'],
     install_requires=[
