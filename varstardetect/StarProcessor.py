@@ -16,10 +16,12 @@ class StarProcessor:
     def __init__(self) -> None:
         pass
 
+    
+
     def data_download(self, target_number, outliers, sigma, dir):
 
         TICID, Camera, CCD, Tmag, RA, Dec = np.loadtxt(
-            f"{dir}", delimiter=',', unpack=True)
+            dir, delimiter=',', unpack=True)
 
         target = int(TICID[target_number])
         # serching target with the lightkurve

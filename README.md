@@ -64,7 +64,3 @@ DISCLAIMER:
 
 This is a Beta state of the program. It is unstable therefore itcan have 
 bugs. It has not been optimized correctly yet.
-
-
-
-

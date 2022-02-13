@@ -7,8 +7,10 @@ import pandas as pd
 import csv
 import lightkurve as lk  # for downloading TESS data products
 
-from Star import Star
-from StarProcessor import StarProcessor
+
+
+from .StarProcessor import StarProcessor
+from .Star import Star
 
 
 class VarStarDetect:
@@ -16,55 +18,36 @@ class VarStarDetect:
     SECTOR_NUMBER = 7
     MIN_PERIOD = 0.1
     MAX_PERIOD = 27
-    MAX_THREADS = 5
 
-    # fields
+    
 
-    __sector = 'Targets/sector_' + 1 + '.csv'
-
-    def __init__(self, sector) -> None:
+    def __init__(self, sector):
 
         self.__sp = StarProcessor()
-
+        self.__sector = 1
         # Selection of sector default 1
         if(sector <= 0 or sector > self.SECTOR_NUMBER):
-            self.__sector = self.setSector(1)
+            self.setSector(1)
         else:
-            self.__sector = self.setSector(sector)
+            self.setSector(sector)
 
         self.__processedStars = list()
 
         pass
 
+       
+
     def setSector(self, sector):
-        self.__sector = 'Targets/sector_' + sector + '.csv'
+        self.__sector = sector
 
-    def processStarMT(self, candidate, min, max):
-
-        time, flux, flux_err = self.__sp.data_download(
-            candidate, StarProcessor.OUTLIERS, StarProcessor.SIGMA, self.directory)
-
-        period, period_err = self.__sp.period_search(
-            time, flux, flux_err, min, max)
-
-        omega, omega_err = self.__sp.angular_frequency(
-            period, period_err)
-        minChi, mins = self.__sp.best_fit(
-            time, flux, flux_err, StarProcessor.EPOCH_0, omega)
-
-        func = self.__sp.harm_fourier_series(
-            mins, omega, StarProcessor.EPOCH_0)
-
-        fitted, fitted_err = self.__sp.evaluation(func, time, flux, flux_err)
-
-        amplitude, amplitude_err = self.__sp.amplitude_func(fitted, fitted_err)
-
-        return Star(candidate, minChi, mins, period, period_err, amplitude, amplitude_err)
+    def getSectorDir(self):
+       # return 'Targets/sector_' + str(self.getSector()) + '.csv'
+       return 'sector_' + str(self.getSector()) + '.csv'
 
     def processStar(self, candidate, min, max):
 
         time, flux, flux_err = self.__sp.data_download(
-            candidate, StarProcessor.OUTLIERS, StarProcessor.SIGMA, self.getCurrentSector())
+            candidate, StarProcessor.OUTLIERS, StarProcessor.SIGMA, self.getSectorDir())
 
         period, period_err = self.__sp.period_search(
             time, flux, flux_err, min, max)
@@ -116,5 +99,5 @@ class VarStarDetect:
             for i in range(min, max):
                 print(self.__processedStars[i])
 
-    def getCurrentSector(self):
+    def getSector(self):
         return self.__sector
